@@ -19,6 +19,10 @@ font-family: 'Rubik', sans-serif;    400, 700
 pre{
   font-family: 'Fira Code', sans-serif !important;
   color: white !important;
+  font-size: 0.9rem !important;
+  text-align: left;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .btn{
@@ -31,4 +35,25 @@ pre{
   padding: 20px 0 5px 0;
   font-family: 'Fira Code', sans-serif;
   color: white;
+}
+
+hr{
+  border: 1px solid #FFD900 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+
+
+/* Works on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+*::-webkit-scrollbar-track {
+  background: #000;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #00C5EB;
+  border-radius: 5px;
 }

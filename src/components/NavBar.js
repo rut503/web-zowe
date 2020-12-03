@@ -1,7 +1,6 @@
-import React from "react";
-import { Nav, Navbar } from "react-bootstrap";
-
-import "../css/NavBarCSS.css";
+import React from "react"
+import { Nav, Navbar } from "react-bootstrap"
+import "../css/NavBarCSS.css"
 
 function NavBar() {
 	return (
@@ -15,7 +14,7 @@ function NavBar() {
 				</Nav>
 			</div>
 		</Navbar>
-	);
+	)
 }
 
-export default NavBar;
+export default NavBar

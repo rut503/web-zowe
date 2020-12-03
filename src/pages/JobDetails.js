@@ -1,25 +1,17 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import axios from 'axios'
+
+import Spinner from '../components/Spinner'
 import '../css/JobDetailsCSS.css'
 
-// Get all active JOBS :
-// 	> zowe zos-jobs list jobs
-// Get all Spool File Ids of a JOB :
-// 	> zowe zos-jobs list spool-files-by-jobid j3051
-// Get JOB Status of a JOB for stat table up top :
-// 	> zowe zos-jobs view job-status-by-jobid j3051 --rfj
-// Get Spool File Content with JOB ID and Spool ID :
-// 	> zowe  zos-jobs view spool-file-by-id JOB03051 4
-
-function viewJob(e){
-	e.preventDefault();
-	console.log(e.target.name)
-}
-
 function JobDetails() {
-	const [jobs, setJobs] = useState([]);
+	const [jobs, setJobs] = useState([])
+	const [jobContent, setJobContent] = useState([])
+	const [spinner1, setSpinner1] = useState(false)
+	const [spinner2, setSpinner2] = useState(false)
 
 	const getJobs = async () => {
+		setSpinner1(true)
 		try{
 			const res = await axios.get("http://148.100.79.75/list_jobs")
 			if(res.data.success === true){
@@ -29,6 +21,7 @@ function JobDetails() {
 		} catch (error) {
 			console.log(error)
 		}
+		setSpinner1(false)
 	}
 
 	const mapJobs = useCallback(()=> {
@@ -44,7 +37,7 @@ function JobDetails() {
 				btn = <button disabled className="col btn btn3">Not Allowed</button>
 			}
 			else {
-				btn = <button name={job.jobid} className="col btn btn3" onClick={(e) => viewJob(e)}>View Job</button>
+				btn = <button name={job.jobid} className="col btn btn3" onClick={(e) => getJobContent(e)}>View Job</button>
 			}
 			return <div className="body2-row row" key={i}>
 				<p className="col stat">{job.jobid}</p>
@@ -56,27 +49,79 @@ function JobDetails() {
 		})
 	}, [jobs])
 
+	const getJobContent = async (e) => {
+		setSpinner2(true)
+		e.preventDefault();
+		const jobID = e.target.name
+
+		try{
+			const res = await axios.get(`http://148.100.79.75/view_job_spools/${jobID}`)
+			setJobContent(res.data)
+		} catch (error) {
+			console.log(error)
+		}
+		setSpinner2(false)
+	}
+
+	const mapJobContent = useCallback(() => {
+		if (jobContent.length < 1) {
+			return <div className="table1">
+				<div className="table1-body3 row">
+					<div className="container">
+						Click View Job button for a job you want to fetch content for.
+						If nothing returns, something went wrong, choose different job to view.
+					</div>
+				</div>
+				<br/>
+			</div>
+		}
+
+		return jobContent.map((content, i) => <div className="table1" key={i}>
+			<div className="table1-top row">
+				<p className="key col">Spool ID : 
+					<br/><span className="value">{content.spool_id}</span>
+				</p>
+				<p className="key col">Record Format : 
+					<br/><span className="value">{content.recfm}</span>
+				</p>
+				<p className="key col">Record Length : 
+					<br/><span className="value">{content.lrecl}</span>
+				</p>
+				<p className="key col">Data Definition Name : 
+					<br/><span className="value">{content.ddname}</span>
+				</p>
+				<p className="key col">Record Count : 
+					<br/><span className="value">{content.record_count}</span>
+				</p>
+			</div>
+
+			<div className="table1-body2 row">
+				<div className="container">
+					<div className="spool-content">
+						<pre className="col">{content.spool_content}</pre>
+					</div>
+				</div>
+			</div>
+			<br/>
+	</div>
+	)}, [jobContent])
+
+	const showSpinner = () => {
+		return <div className="table1">
+			<div className="table1-body3 row">
+				<div className="container">
+					<Spinner />
+				</div>
+			</div>
+			<br/>
+		</div>
+	}
+
 	useEffect(() => {
-		// getFiles()
+		// getJobs()
 		mapJobs()
-	}, [mapJobs])
-
-	// const submitJob = async (e) => {
-	// 	e.preventDefault();
-	// 	const fileName = e.target.innerHTML
-
-	// 	try{
-	// 		const res = await axios.get(`http://148.100.79.75/submit_job/${fileName}`)
-	// 		if(res.data.success !== true){
-	// 			alert("Something went wrong, job not submitted!")
-	// 		}
-	// 		else{
-	// 			alert("Job submitted successfully!")
-	// 		}
-	// 	} catch (error) {
-	// 		console.log(error)
-	// 	}
-	// }
+		mapJobContent()
+	}, [mapJobs, mapJobContent])
 
     return (
         <div className="job-details-page container">
@@ -89,14 +134,16 @@ function JobDetails() {
 				</div>
 				<div className="table1-body2 row">
 					<div className="container">
-						{ mapJobs() }
+						{ spinner1 ? showSpinner() : mapJobs() }
 					</div>
 				</div>
 				<br/>
-				<div className="table1-body3 row">
-					<pre>Hello name name is Rut</pre>
-				</div>
 			</div>
+
+			<div className="table1">
+				{ spinner2 ? showSpinner() : mapJobContent() }
+			</div>
+			
         </div>
     );
 }

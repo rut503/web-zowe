@@ -2,7 +2,14 @@
 	border-radius: 0 0 10px 10px;
 	background-color: #0E0E16;
 	padding: 10px;
+	font-family: 'Fira Code', monospace;
+	font-weight: 700;
+}
 
+.table1-body3{
+	border-radius: 10px;
+	background-color: #0E0E16;
+	padding: 50px;
 	font-family: 'Fira Code', monospace;
 	font-weight: 700;
 }
@@ -17,11 +24,15 @@
 	margin-top: 10px;
 }
 
-.table1-body3{
-	border-radius: 10px;
-	background-color: #0E0E16;
-	padding: 50px;
-	font-size: 1.2rem !important;
+.key{
+	font-family: 'Roboto', sans-serif;
+	font-weight: 700;
+	color: #00C5EB;
+}
+.value{
+	font-family: 'Fira Code', monospace;
+	font-weight: 700;
+	color: #E9005A;
 }
 
 .btn3{
