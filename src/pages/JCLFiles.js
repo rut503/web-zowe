@@ -1,66 +1,66 @@
-import React from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
+import axios from 'axios'
 import '../css/JCLFilesCSS.css'
 
-// Get all JCL Files :
-// 	> zowe zos-files list all-members "Z01301.JCL"
-// {
-// 	"success": true,
-// 	"exitCode": 0,
-// 	"message": "",
-// 	"stdout": "JES1JOB1\nJES1JOB2\nJES2JOB1\n",
-// 	"stderr": "",
-// 	"data": {
-// 	  "success": true,
-// 	  "commandResponse": null,
-// 	  "apiResponse": {
-// 		"items": [
-// 		  {
-// 			"member": "JES1JOB1"
-// 		  },
-// 		  {
-// 			"member": "JES1JOB2"
-// 		  },
-// 		  {
-// 			"member": "JES2JOB1"
-// 		  }
-// 		],
-// 		"returnedRows": 3,
-// 		"JSONversion": 1
-// 	  }
-// 	}
-// }
-
-
-function submitJob(e){
-	e.preventDefault();
-	console.log(e.target.innerHTML)
-}
-
-function getJCLFiles(){
-	alert("Get JCL!!!!")
-}
-
 function JCLFiles() {
+	const [files, setFiles] = useState([]);
+
+	const getFiles = async () => {
+		try{
+			const res = await axios.get("http://148.100.79.75/list_jcl_files")
+			setFiles(res.data.data.apiResponse.items)
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
+	const mapFiles = useCallback(()=> {
+		if(files.length < 1){
+			return <p className="error-message">No files found in Z01301.JCL, Try pressing Get JCL button to fetch. 
+				If that doesn't work than something went wrong.</p>
+		}
+		return files.map((file, i) => (
+			<button key={i} className="btn btn2" onClick={(e) => submitJob(e)}>{file.member}</button>
+		))
+	}, [files])
+
+	useEffect(() => {
+		// getFiles()
+		mapFiles()
+	}, [mapFiles])
+
+	const submitJob = async (e) => {
+		e.preventDefault();
+		const fileName = e.target.innerHTML
+
+		try{
+			const res = await axios.get(`http://148.100.79.75/submit_job/${fileName}`)
+			if(res.data.success !== true){
+				alert("Something went wrong, job not submitted!")
+			}
+			else{
+				alert("Job submitted successfully!")
+			}
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
     return (
         <div className="jcl-files-page container">
-
             <div className="table1">
 				<div className="table1-top row">
 					<span className="table1-name col">Files from Z01301.JCL</span>
 					<div className="table1-btns col">
-						<button className="btn btn1" onClick={getJCLFiles}>Get JCL</button>
-						{/* <button className="btn btn1" onClick={getJCLFiles}>Submit</button> */}
+						<button className="btn btn1" onClick={getFiles}>Get JCL</button>
 					</div>
 				</div>
 				<div className="table1-body row">
 					<div className="col">
-						<button className="btn btn2" onClick={(e) => submitJob(e)}>JES1JOB1</button>
-						<button className="btn btn2" onClick={(e) => submitJob(e)}>JES1JOB2</button>
-						<button className="btn btn2" onClick={(e) => submitJob(e)}>JES2JOB1</button>
+						{ mapFiles() }
 					</div>
 				</div>
 			</div>
-
         </div>
     );
 }

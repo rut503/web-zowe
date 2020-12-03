@@ -30,3 +30,9 @@ pre{
   font-family: 'Roboto', sans-serif;
   font-weight: 700 !important;
 }
+
+.error-message{
+  padding: 20px 0 5px 0;
+  font-family: 'Fira Code', sans-serif;
+  color: white;
+}
