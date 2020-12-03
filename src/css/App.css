@@ -16,10 +16,6 @@ font-family: 'Rubik', sans-serif;    400, 700
   position: relative;
 }
 
-.main-content{
-  margin-top: 120px;
-}
-
 pre{
   font-family: 'Fira Code', sans-serif !important;
   color: white !important;

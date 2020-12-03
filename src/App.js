@@ -12,18 +12,18 @@ function App() {
 	return (
 	<div className="App">
 		<Router>
-			{/* <div className="nav-content"> */}
-				<NavBar />
-			{/* </div> */}
-			<div className="main-content">
+			<NavBar />
+			<br/><br/><br/><br/><br/>
+
+			{/* <div className="main-content"> */}
 				<Switch>
 					<Route exact path={"/"} component={JCLFiles}/>
 					<Route exact path={"/details"} component={JobDetails}/>
 				</Switch>
-			</div>
-			{/* <div className="footer-content"> */}
-				<Footer />
 			{/* </div> */}
+
+			<br/><br/><br/>
+			<Footer />
 		</Router>
 	</div>
 	);
