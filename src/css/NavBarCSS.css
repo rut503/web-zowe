@@ -1,0 +1,18 @@
+.navbar-box{
+	background-color: #000;
+}
+
+.title{
+	color: #00C5EB !important;
+	font-family: 'Rubik', sans-serif;
+	font-weight: 700;
+	font-size: 2rem;
+}
+
+.link{
+	margin-right: 25px;
+	color: #E9005A !important;
+	font-family: 'Rubik', sans-serif;
+	font-weight: 700;
+	font-size: 1.2rem;
+}

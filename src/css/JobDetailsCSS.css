@@ -1,0 +1,33 @@
+.table1-body2{
+	border-radius: 0 0 10px 10px;
+	background-color: #0E0E16;
+	padding: 10px;
+
+	font-family: 'Fira Code', monospace;
+	font-weight: 700;
+}
+
+.stat{
+	text-align: center;
+	margin: auto;
+	border-right: 2px solid #FFD900;
+}
+
+.body2-row{
+	margin-top: 10px;
+}
+
+.table1-body3{
+	border-radius: 10px;
+	background-color: #0E0E16;
+	padding: 50px;
+	font-size: 1.2rem !important;
+}
+
+.btn3{
+	background-color: #FFD900;
+	font-size: 1.2rem;
+	margin: 0 50px 0 50px;
+	font-family: 'Fira Code', monospace;
+	width: 10px !important;
+}

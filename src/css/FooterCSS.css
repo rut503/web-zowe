@@ -1,0 +1,10 @@
+.footer {
+    font-family: 'Rubik', sans-serif;    
+    font-weight: 400;
+    font-size: 1.3rem;
+    padding: 10px;
+    background-color: #000;
+    color: #E9005A;
+
+    margin-top: auto;
+}

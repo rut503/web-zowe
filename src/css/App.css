@@ -1,0 +1,32 @@
+/* 
+font-family: 'Fira Code', monospace; 400, 700
+font-family: 'Roboto', sans-serif;   500, 700
+font-family: 'Rubik', sans-serif;    400, 700
+*/
+
+.App {
+  text-align: center;
+  background-color: #191927;
+  color: white;
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+}
+
+.main-content{
+  margin-top: 120px;
+}
+
+pre{
+  font-family: 'Fira Code', sans-serif !important;
+  color: white !important;
+}
+
+.btn{
+  border: none;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700 !important;
+}

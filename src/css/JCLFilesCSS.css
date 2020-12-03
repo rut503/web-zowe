@@ -1,0 +1,55 @@
+.jcl-files-page{
+
+}
+
+.table1{
+	border-radius: 10px;
+}
+
+.table1-top{
+	border-radius: 10px 10px 0 0;
+	background-color: #000;
+	padding: 20px;
+}
+
+.table1-name{
+	color: #AAEF00;
+	text-align: left;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.5rem;
+}
+
+.table1-btns{
+	text-align: right;
+}
+
+.table1-body{
+	border-radius: 0 0 10px 10px;
+	background-color: #0E0E16;
+	padding: 10px;
+}
+
+.jcl-name-box{
+
+	width: fit-content;
+	color: black;
+	padding: 7px;
+	margin: 10px;
+	font-family: 'Fira Code', monospace; 
+	font-weight: 700;
+	font-size: 1.5rem;
+	/* border-radius: 10px; */
+}
+
+.btn1{
+	background-color: #FFD900;
+	font-size: 1.2rem;
+	margin-left: 20px;
+}
+
+.btn2{
+	background-color: #FFD900;
+	font-size: 1.2rem;
+	margin: 20px;
+	font-family: 'Fira Code', monospace;
+}
